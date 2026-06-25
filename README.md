@@ -1,80 +1,41 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Nacho Travel App 🌍✈️
 
-# Getting Started
+A premium, React Native mobile application designed for booking immersive travel tours, planning custom itineraries, and seamlessly processing transactions through a headless Shopify architecture.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## 💡 Why This Project Stands Out
 
-## Step 1: Start the Metro Server
+Building Nacho was an exercise in bridging the gap between a content-rich travel application and a robust, secure e-commerce platform. The primary engineering challenge was integrating a headless Shopify architecture into a React Native environment while enforcing complex pre-checkout requirements (such as multi-user legal waivers). 
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+Managing the intricate asynchronous flow—from capturing multiple base64 digital signatures, uploading them to generate legal PDFs, executing complex GraphQL mutations to link these waivers to specific cart items, and finally presenting a frictionless native Shopify checkout sheet—demonstrates a deep understanding of React Native bridge integrations, advanced state management, and API orchestration. The resulting architecture is both highly scalable and exceptionally user-friendly, completely abstracting the complex backend processes away from the traveler.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## ⭐ Spotlight Feature: Dynamic Digital Waivers & Headless Shopify Checkout
 
-```bash
-# using npm
-npm start
+The most technically complex feature in the application is the **Digital Waiver & Multi-Traveler Signature Flow** (`WaverForm/index.tsx`). 
 
-# OR using Yarn
-yarn start
-```
+### The Challenge
+Before completing a high-risk or international travel booking, users must sign a legally binding liability waiver. However, bookings often involve multiple travelers (e.g., families or groups). The application needed to dynamically generate form fields, capture individual digital signatures for each traveler on the fly, and map all this data seamlessly into a Shopify headless checkout process—all without breaking the user experience.
 
-## Step 2: Start your Application
+### Under the Hood
+1. **Dynamic State Management**: Maintains a scalable array of traveler objects (`signatureData`) where users can add or remove travelers dynamically. It relies on complex React state updates to ensure each traveler's input fields and signature canvas remain decoupled and performant.
+2. **Canvas Signature Capture**: Utilizes `react-native-signature-canvas` within controlled modals to capture base64 representations of signatures for each individual traveler and the parent/guardian.
+3. **Complex Validation & API Orchestration**: Validates all dynamically generated fields (passports, DOBs, emails, signatures). On submission, it sends the payload to an external API to generate a legal PDF, retrieves the PDF ID, and uses GraphQL to mutate the Shopify Cart lines, attaching the waiver directly to the specific booking.
+4. **Seamless Headless Checkout**: Once the waiver is mapped to the cart, the system updates the Shopify Cart Buyer Identity and immediately triggers `@shopify/checkout-sheet-kit` for a native, frictionless payment experience without the user ever leaving the app.
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+## 🚀 Tech Stack
 
-### For Android
+- **Framework**: React Native (v0.76.5) with TypeScript
+- **State Management**: Redux Toolkit & React-Redux
+- **Navigation**: React Navigation v7 (Native Stack & Bottom Tabs)
+- **Data Fetching / API**: Apollo Client (for Shopify Storefront GraphQL integration) & Axios
+- **E-Commerce / Checkout**: Shopify Checkout Sheet Kit (`@shopify/checkout-sheet-kit`)
+- **Maps & Routing**: React Native Maps & Maps Directions
+- **Animations & Gestures**: React Native Reanimated v3, React Native Gesture Handler
+- **Core Libraries**: `react-native-calendars`, `react-native-signature-canvas`, `react-native-reanimated-carousel`, `react-native-step-indicator`
 
-```bash
-# using npm
-npm run android
+## 🛠 Key Features
 
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-# Nacho
+- **Custom Trip Planning**: Interactive multi-step wizard allowing users to curate daily itineraries, select activities, and pick dates using interactive calendars.
+- **E-commerce & Cart Management**: Robust cart system supporting travel packages and dynamic bookings, fully powered by Redux and a headless Shopify backend.
+- **Interactive Maps Integration**: Visualize travel routes, tour locations, and directions right within the app for an enhanced exploration experience.
+- **Rich Media & Content**: Seamless video playback with YouTube iframe integration and high-performance image rendering using fast-image caching.
+- **User Authentication & Profiles**: Secure login and OTP verification flows, along with comprehensive profile management and booking history.
