@@ -2,6 +2,9 @@
 
 A premium, React Native mobile application designed for booking immersive travel tours, planning custom itineraries, and seamlessly processing transactions through a headless Shopify architecture.
 
+### 📱 Download the App
+- [Download on the App Store (iOS)](https://apps.apple.com/in/app/evolution35/id6740553296)
+
 ## 💡 Why This Project Stands Out
 
 Building Nacho was an exercise in bridging the gap between a content-rich travel application and a robust, secure e-commerce platform. The primary engineering challenge was integrating a headless Shopify architecture into a React Native environment while enforcing complex pre-checkout requirements (such as multi-user legal waivers). 
